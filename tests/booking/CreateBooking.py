@@ -4,7 +4,6 @@ import requests
 from pprint import pprint
 
 from utils import FileReader
-from utils.FileReader import read_json_file
 import conftest
 
 
@@ -59,7 +58,7 @@ def test_create_new_booking_with_jsonFile_and_verify_booking_info():
     headers = {"Content-Type": "application/json"}
 
     # Reading JSON from File
-    createBooking_req_body = read_json_file("createBookingRequest.json")
+    createBooking_req_body = FileReader.read_json_file("createBookingRequest.json")
     # Printing JSON String
     pprint(createBooking_req_body)
     # Converting to JSON Object
@@ -67,7 +66,7 @@ def test_create_new_booking_with_jsonFile_and_verify_booking_info():
     pprint(createBooking_req_body_json)
 
     # Action
-    response_createBooking = requests.post(url=BASE_URI, data=createBooking_req_body_json,
+    response_createBooking = requests.post(url=conftest.BASE_URI, data=createBooking_req_body_json,
                                            headers=headers)
 
     # Debug
@@ -85,7 +84,7 @@ def test_create_new_booking_with_jsonFile_and_verify_booking_info():
 
 
 # Removing all PRINT statements
-def test_create_new_booking_with_jsonFile_and_verify_booking_info_updated():
+def test_JIRA_001_create_new_booking_with_jsonFile_and_verify_booking_info_updated():
     # Preparation
     headers = {"Content-Type": "application/json"}
 
@@ -100,9 +99,30 @@ def test_create_new_booking_with_jsonFile_and_verify_booking_info_updated():
     assert response_createBooking.status_code == 200
     assert response_createBooking.json()["booking"]["firstname"] == "Deepa"
 
-# # get call to validate
-# url_get = f'{baseUrl}/{bookingId}'
-# print(url_get)
-# response_getBooking = requests.get(url_get).json()
-# pprint(response_getBooking)
-# assert response_getBooking["firstname"] == "Deepa"
+
+# Removing all PRINT statements
+def test_create_new_booking_with_jsonFile_with_noHeaders():
+    # Preparation
+    createBooking_req_body = FileReader.read_json_file("createBookingRequest.json")
+
+    # Action
+    response_createBooking = requests.post(url=conftest.BASE_URI, data=json.dumps(createBooking_req_body))
+
+    # Assertion
+    responseString = response_createBooking.content.decode("utf-8")
+    assert response_createBooking.status_code == 400
+    assert responseString == "Bad Request"
+
+
+def test_create_new_booking_with_header_as_application_xml():
+    # Preparation
+    headers = {"Content-Type": "application/xml"}
+    createBooking_req_body = FileReader.read_json_file("createBookingRequest.json")
+
+    # Execution
+    response = requests.post(url=conftest.BASE_URI, headers=headers, data=json.dumps(createBooking_req_body))
+
+    # Assertion
+    assert response.status_code == 400
+    responseString = response.content.decode("utf-8")
+    assert responseString == "Bad Request"
