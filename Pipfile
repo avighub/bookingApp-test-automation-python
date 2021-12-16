@@ -9,6 +9,8 @@ pytest = "==6.2.5"
 assertpy = "*"
 selenium = "*"
 webdriver-manager = "*"
+pytest-html = "*"
+pytest-xdist = "*"
 
 [dev-packages]
 
