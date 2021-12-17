@@ -37,10 +37,11 @@ class Base:
 
         print("-----------------------------------------")
         print("Test is started")
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(conftest.IMPLICIT_WAIT)
         self.driver.maximize_window()
 
         yield self.driver
+
         if self.driver is not None:
             print("-----------------------------------------")
             print("Tests is finished")

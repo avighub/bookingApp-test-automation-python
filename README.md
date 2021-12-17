@@ -43,7 +43,7 @@
     - [More on HTML report visit here](https://pytest-html.readthedocs.io/en/latest/user_guide.html)
 - To run tests in parallel:
   - Using pytest-xdist : ```pytest --html="Reports\Report.html" --self-contained-html testFileName.py -n 2 ```
-
+    - [more on xdist](https://pypi.org/project/pytest-xdist/) 
 #### Running tests (Using IDE)
 - Pycharm
   - Open the project
