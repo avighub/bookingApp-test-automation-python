@@ -3,6 +3,7 @@ from time import sleep
 
 import pytest
 
+import conftest
 from pageObjects.BasePage import Base
 from pageObjects.LoginPage import LoginPage
 from pageObjects.ProductsPage import ProductsPage
@@ -24,11 +25,13 @@ class TestLogin(Base):
 
         # Step 1 : Login
         login.navigate_To_LoginPage()
-        login.enter_UserName("standard_user")
-        login.enter_password("secret_sauce")
+        login.enter_UserName(conftest.USERNAME_STD)
+        login.enter_password(conftest.PASSWORD_STD)
         login.click_loginBtn()
         sleep(1)
 
-        #Step 2: Products Page
+        # Step 2: Products Page
         productsPage = ProductsPage(driver)
         productsPage.verify_productPage_is_displayed()
+
+        # Step 3 : Cart preview page

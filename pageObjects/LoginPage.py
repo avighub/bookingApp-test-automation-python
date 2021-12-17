@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 
+import conftest
+
 
 class LoginPage():
     # Constructor
@@ -11,7 +13,7 @@ class LoginPage():
         self.loginBtn = "login-button"
 
     def navigate_To_LoginPage(self):
-        self.driver.get("https://www.saucedemo.com/")
+        self.driver.get(conftest.BASE_URL_UI)
 
     def enter_UserName(self, username):
         self.driver.find_element(By.ID, self.userNameInputTxt).send_keys(username)
