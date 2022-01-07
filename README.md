@@ -3,6 +3,7 @@
 #### Tech stack
 - Language: Python
 - Test Runner: pytest
+- BDD : behave and allure-behave
 - http lib: requests
 - Utility Libs: names
 
@@ -44,6 +45,10 @@
 - To run tests in parallel:
   - Using pytest-xdist : ```pytest --html="Reports\Report.html" --self-contained-html testFileName.py -n 2 ```
     - [more on xdist](https://pypi.org/project/pytest-xdist/) 
+#### Running BDD Tests
+- Run all scenarios: ```behave /pathOffeatureFIle```
+- Run selected using tag(s): ```behave --tags="sanity,regression" /pathOffeatureFIle```
+
 #### Running tests (Using IDE)
 - Pycharm
   - Open the project
